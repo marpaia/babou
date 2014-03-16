@@ -1,7 +1,7 @@
-osx-configs
-===========
+babou
+=====
 
-osx-configs is a Mac OS X configuration management utility. It allows you
+babou is a Mac OS X configuration management utility. It allows you
 to express the configurations of your OS X machine via a simple JSON file
 and a directory of flat files.
 
