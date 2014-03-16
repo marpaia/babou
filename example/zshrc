@@ -1,0 +1,21 @@
+ZSH_THEME="marpaia"
+
+
+ZSH=$HOME/.zsh
+
+# Load all of the config files
+for config_file ($ZSH/lib/*.zsh); do
+  source $config_file
+done
+
+# Load and run compinit
+autoload -U compinit
+compinit -i
+
+# Load all of the plugins that were defined in ~/.zshrc
+for plugin in $ZSH/plugins/*; do
+    source `ls $plugin/*.plugin.zsh`
+done
+
+# Load the theme
+source "$ZSH/themes/$ZSH_THEME.zsh-theme"

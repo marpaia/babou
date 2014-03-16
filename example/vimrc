@@ -1,0 +1,423 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Maintainer:                                                                 "
+"     Mike Arpaia                                                             "
+"     mike@arpaia.co                                                          "
+"     http://arpaia.co                                                        "
+"                                                                             "
+" To use:                                                                     "
+"    - Copy this file to ~/.vimrc                                             "
+"    - Open vim                                                               "
+"                                                                             "
+" Keep in mind:                                                               "
+"    - If you have a ~/.vim directory, it might be a good idea to delete it   "
+"      before you use this vimrc as this vimrc will automatically create the  "
+"      appropriate directory structure that it needs                          "
+"    - This vimrc uses vundle to install plugins from github (via git) so it  "
+"      should go without saying that you'll need git installed on your host   "
+"      in order for this to work                                              "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Initial setup                                                               "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let createVimDir=1
+let vim_dir=expand('~/.vim')
+if !isdirectory(vim_dir)
+    echo "Creating ~/.vim/"
+    echo ""
+    silent !mkdir -p ~/.vim
+    let createVimDir=0
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins                                                                     "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Setting up Vundle - the vim plugin bundler
+let installVundle=0
+let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+if !filereadable(vundle_readme)
+    echo "Sit tight! I'm going to install Vundle and a few plugins for you!"
+    echo ""
+    echo ""
+    echo "Installing Vundle.."
+    echo ""
+    silent !mkdir -p ~/.vim/bundle
+    silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+    echo "Installing plugins.."
+    echo ""
+    silent !vim +BundleInstall +qall
+    let installVundle=1
+else
+    let installVundle=1
+endif
+
+if installVundle
+    " Required settings for Vundle
+    filetype off
+    set rtp+=~/.vim/bundle/vundle/
+    call vundle#rc()
+    Bundle 'gmarik/vundle'
+
+    " Plugins
+    Bundle 'tpope/vim-fugitive'
+    Bundle 'kien/ctrlp.vim'
+    Bundle 'tpope/vim-markdown'
+    Bundle 'mileszs/ack.vim'
+    Bundle 'Lokaltog/vim-powerline'
+    Bundle 'scrooloose/nerdtree'
+    Bundle 'mattn/webapi-vim'
+    Bundle 'mattn/gist-vim'
+    Bundle 'marpaia/go.vim'
+    Bundle 'scrooloose/syntastic'
+    Bundle 'Townk/vim-autoclose'
+    Bundle 'tpope/vim-eunuch'
+    Bundle 'tpope/vim-rails'
+    Bundle 'tpope/vim-surround'
+    Bundle 'tpope/vim-rvm'
+    Bundle 'tpope/vim-commentary'
+    Bundle 'tpope/vim-surround'
+    Bundle 'ervandew/supertab'
+    Bundle 'Blackrush/vim-gocode'
+    Bundle 'tomtom/tlib_vim'
+    Bundle 'MarcWeber/vim-addon-mw-utils'
+    Bundle 'garbas/vim-snipmate'
+    Bundle 'honza/vim-snippets'
+    Bundle 'sontek/minibufexpl.vim'
+    Bundle 'kien/rainbow_parentheses.vim'
+    Bundle 'xolox/vim-misc'
+    " Bundle 'derekwyatt/vim-scala'
+    " Bundle 'vim-scripts/easytags.vim'
+    Bundle 'flazz/vim-colorschemes'
+    Bundle 'rdolgushin/play.vim'
+end
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General viewing                                                             "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" fix backspace
+set backspace=start,eol,indent
+
+" make it prettier
+set background=dark
+
+" makes sure the status line displays automatically
+set laststatus=2
+
+" turn on syntax highlighting
+syntax on
+
+" set terminal title to file name
+set title
+
+" Set to auto read when a file is changed from the outside
+set autoread
+
+" Set 7 lines to the cursor - when moving vertically using j/k
+set so=7
+
+" Ignore case when searching
+set ignorecase
+
+" Highlight search results
+set hlsearch
+
+" Automatically display line number
+set number
+
+" Read man pages in vim
+runtime ftplugin/man.vim
+
+" Show and clear all extraneous whitespace automatically
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+autocmd BufWritePre * :%s/\s\+$//e
+
+" set the filetype for Smarty files
+au BufRead,BufNewFile *.tpl set filetype=smarty
+
+" set filetype for go files
+au BufRead,BufNewFile *.go set filetype=go
+
+" set the filetype for markdown files
+au BufRead,BufNewFile *.md set filetype=markdown
+au BufRead,BufNewFile *.mkd set filetype=markdown
+au BufRead,BufNewFile *.markdown set filetype=markdown
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General code writing                                                        "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" fold based on indent
+set foldmethod=indent
+
+" deepest fold is 10 levels
+set foldnestmax=10
+
+" dont fold by default
+set nofoldenable
+
+" set the foldlevel
+" set foldlevel=1
+
+" set commentary comment types
+autocmd FileType python set commentstring=#\ %s
+autocmd FileType ruby set commentstring=#\ %s
+
+" turn on gocode completion
+filetype plugin indent on
+
+" automatically format go files on save
+au FileType go au BufWritePre <buffer> Fmt
+
+" auto close the omnicomplete window
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Key maps                                                                    "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" set the leader to the , key
+let mapleader = ","
+
+" map ; to be the same thing as : in normal mode
+nnoremap ; :
+
+" toggle spell checking
+map <leader>s <nop>
+map <leader>s :set spell!<CR>
+
+" map ,d to buffer close
+map <leader>d :bd<CR>
+
+" Remap VIM 0 to first non-blank character
+map 0 ^
+
+" Turning off the <F1> help
+nmap <F1> <nop>
+
+" tab left
+map <F3> gT
+
+" tab right
+map <F4> gt
+
+" toggle line numbers
+map <F5> :set number!<CR> :set foldcolumn=0<CR>
+
+" word wrap
+map <F6> gwap
+
+" turn on spell checking
+map <F7> :set paste!<CR>
+
+" run the file
+au BufEnter,BufNew *.php map <F8> :w<CR>:!clear && php %<CR>
+au BufEnter,BufNew *.py map <F8> :w<CR>:!clear && python %<CR>
+au BufEnter,BufNew *.rb map <F8> :w<CR>:!clear && ruby %<CR>
+au BufEnter,BufNew *.io map <F8> :w<CR>:!clmartindent inserts one extra level of indentation when appropriate
+set smartindent
+
+" autoindent copies the indentation from the previous line,
+set autoindent
+
+" tabstop changes the width of the tab character
+set tabstop=4
+au BufEnter,BufNew *.rb set tabstop=2
+au BufEnter,BufNew *.scala set tabstop=2
+au BufEnter,BufNew *.html set tabstop=2
+
+" expandtab inserts spaces whenever the tab key is pressed
+set expandtab
+autocmd FileType go set noexpandtab
+autocmd FileType markdown set noexpandtab
+
+" shiftwidth changes the number of space characters inserted for indentation
+set shiftwidth=4
+au BufEnter,BufNew *.rb set shiftwidth=2
+au BufEnter,BufNew *.scala set shiftwidth=2
+au BufEnter,BufNew *.html set shiftwidth=2
+
+" softtabstop makes the backspace key treat the four spaces like a tab
+set softtabstop=4
+au BufEnter,BufNew *.rb set softtabstop=2
+au BufEnter,BufNew *.html set softtabstop=2
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vim artifact files                                                          "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" set permanent undo files
+set undofile
+
+" maximum number of changes that can be undone
+set undolevels=1000
+
+" maximum number lines to save for undo on a buffer reload
+set undoreload=10000
+
+let createVimTmp=0
+let vim_tmp=expand('~/.vim/tmp')
+if !isdirectory(vim_tmp)
+    echo "Creating ~/.vim/tmp"
+    echo ""
+    silent !mkdir -p ~/.vim/tmp
+    let createVimTmp=1
+else
+    let createVimTmp=1
+endif
+
+" Don't drop swap and undo files all over the place
+if createVimTmp
+    set directory=~/.vim/tmp
+    set undodir=~/.vim/tmp
+end
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ctags                                                                       "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let createVimTags=0
+let vim_tags=expand('~/.vim/tags')
+if !isdirectory(vim_tags)
+    echo "Creating ~/.vim/tags"
+    echo ""
+    silent !mkdir -p ~/.vim/tags
+    let createVimTags=1
+else
+    let createVimTags=1
+endif
+
+"if isdirectory('~/.vim/bundle/easytags.vim')
+    " Set the tags file
+    " let g:easytags_file = '~/.vim/tags/tags'
+
+    " generate tags on file saves
+    " let g:easytags_events = ['BufWritePost']
+
+    " recurse directories
+    " let g:easytags_autorecurse = 1
+
+    " turn off the updatetime_warning
+    " let g:easytags_updatetime_warn = 0
+"end
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Gist                                                                        "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if isdirectory('~/.vim/bundle/gist-vim')
+    " GitHub enterprise swag
+    let g:github_api_url = 'https://github.etsycorp.com/api/v3'
+
+    " Allow private gists to show in gist list
+    let g:gist_show_privates = 1
+
+    " Post a private gist
+    map gpp :Gist -p<CR>
+
+    " Post whole file to gist
+    map gp :Gist<CR>
+
+    " List gists
+    map gl :Gist -l<CR>
+end
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Powerline                                                                   "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if isdirectory('~/.vim/bundle/vim-powerline')
+    " setup powerline symbols
+    if expand($SHELL) =~ "bash$"
+        if expand($HOSTNAME) =~ "etsy.com"
+            let g:Powerline_symbols = 'compatible'
+        else
+            let g:Powerline_symbols = 'unicode'
+        endif
+    elseif expand($SHELL) =~ "zsh$"
+        if expand($HOST) =~ "etsy.com"
+            let g:Powerline_symbols = 'compatible'
+        else
+            let g:Powerline_symbols = 'unicode'
+        endif
+    endif
+end
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ctrl-p                                                                      "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if isdirectory('~/.vim/bundle/ctrlp.vim')
+    " faster find for ctrl-p
+    let g:ctrlp_user_command = 'find %s -type f'
+
+    " set ignore directories for ctl-p
+    set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/.git/*,*/.hg/*,*/.svn/*
+end
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Supertab                                                                    "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if isdirectory('~/.vim/bundle/supertab')
+    " set context for supertab
+    let g:SuperTabDefaultCompletionType = "context"
+end
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Syntastic                                                                   "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if isdirectory('~/.vim/bundle/syntastic')
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+    let g:syntastic_check_on_open=1
+    let g:syntastic_auto_loc_list=1
+    let g:syntastic_loc_list_height=5
+    let g:syntastic_error_symbol='E'
+    let g:syntastic_warning_symbol='W'
+
+    " set the checkers
+    let g:syntastic_python_checkers=['pylint']
+end
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Rainbow parentheses                                                         "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if isdirectory('~/.vim/bundle/rainbow_parentheses.vim')
+    " rainbow parentheses always on
+    au VimEnter * RainbowParenthesesToggle
+    au Syntax * RainbowParenthesesLoadRound
+    au Syntax * RainbowParenthesesLoadSquare
+    au Syntax * RainbowParenthesesLoadBraces
+end
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NERDTree                                                                    "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if isdirectory('~/.vim/bundle/nerdtree')
+    " toggle NERDTree
+    nmap <F1> :NERDTreeToggle<CR>
+end
+
+" switch between NERDTree and the open file
+map <F2> <C-w><C-w>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Colorschemes                                                                "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if isdirectory('~/.vim/bundle/vim-colorschemes')
+    colorscheme enzyme
+end

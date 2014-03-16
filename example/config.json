@@ -1,0 +1,44 @@
+{
+    "file_mappings": {
+        "~/.vimrc": "vimrc",
+        "~/.zshrc": "zshrc",
+        "~/.zsh": "zsh"
+    },
+    "create_directories": [
+        "~/devtools",
+        "~/docs",
+        "~/git",
+        "~/go",
+        "~/go/bin",
+        "~/go/pkg",
+        "~/go/src",
+    ],
+    "brew_packages": {
+        "ack" : {},
+        "brew-cask": {},
+        "gdbm": {},
+        "neo4j": {},
+        "node": {},
+        "percona-server": {
+            "options": "--with-memcached"
+        },
+        "python": {},
+        "python3": {},
+        "wget": {}
+    },
+    "cask_packages": {
+        "google-chrome": {},
+        "dropbox": {}
+    },
+    "git": {
+        "https://github.com/facebook/folly.git": "~/git/folly",
+    },
+    "defaults_write": {
+        "com.apple.dock": {
+            "pinning": "start"
+        },
+        "com.apple.TimeMachine": {
+            "DoNotOfferNewDisksForBackup": true
+        }
+    }
+}
