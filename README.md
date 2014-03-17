@@ -117,10 +117,10 @@ the most reliable way to install applications in an automated fashion. The
 `Cask` class and the `Brew` class both inherrit from the `Package` class
 internally so they behave very similary. 
 
-**It's worth noting that different cask packges behave in different ways. 
+*It's worth noting that different cask packges behave in different ways. 
 I said that cask is the most reliable way to automate the installation of
 graphical applications via config management, but the bar was set pretty low
-there.**
+there.*
 
 ### git
 
