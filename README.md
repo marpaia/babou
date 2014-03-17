@@ -5,6 +5,11 @@ babou is a Mac OS X configuration management utility. It allows you
 to express the configurations of your OS X machine via a simple JSON file
 and a directory of flat files.
 
+Pretty much everyone likes the idea of keeping their dotfiles in a single
+directory on github. With Babou, you can do just that! Toss everything
+together in a directory and create and `config.json` file (see below) that
+maps everything together.
+
 Simply create a directory at `~/.config` and a master config file at
 `~/.config/config.json`. Populate the config file and config directory
 with relevant settings and files. Run the `config` binary and off you go!
@@ -14,10 +19,13 @@ idempotent. In other words, you can schedule `config` to run as often as
 you want, and it will always leave your machine in the same state. If it
 doesn't need to do anything to satisfy state that already exists, it won't!
 
+## Maintanance status
+
 Beware that this is pretty new technology. I wrote this as a weekend project
 because it was something that I really wanted. I think it works well, but there
-are many ways in which it can be improved. See the "Contributing" section for
-more information!
+are many ways in which it can be improved. I keep track of features that I want
+too add via GitHub issues. Check them out if you're interested in what's coming
+next!
 
 ## Motivation
 
@@ -28,6 +36,16 @@ package, forced me to create at least one new file and modify at least one
 existing file. It was a lot of work to keep up with to do something that should
 be relatively straightforward. This is what I'm going to be using to manage the
 configurations of my Mac.
+
+## Babou vs Chef and Puppet
+
+Babou isn't meant to replace Chef or Puppet and thus I don't like to compare them.
+Part of the motivation of Babou was, aside from simplicity, creating a system that
+can easily run alongside Chef or Puppet. With more and more organizations moving
+to solutions like Boxen, it becomes more and more of a scary idea to run your own
+Chef or Puppet installation on top of the one that may already be installed on your
+machine. For this reason, I like to think that Babou and Chef compliment each other
+nicely.
 
 ## Examples
 
