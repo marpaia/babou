@@ -24,7 +24,7 @@ more information!
 Not so long ago, I wanted the ability to manage the configurations on my OS X
 machines so I started using Opscode's Chef to manage my OS X configs. This
 worked pretty well, but doing something simple like adding one file, or one brew
-package, forced my to create at least one new file and modify at least one
+package, forced me to create at least one new file and modify at least one
 existing file. It was a lot of work to keep up with to do something that should
 be relatively straightforward. This is what I'm going to be using to manage the
 configurations of my Mac.
