@@ -190,4 +190,4 @@ This was written, with love, by Mike Arpaia.
 
 ## Who's Babou?
 
--> ![](http://i.imgur.com/sGmfuad.jpg) <-
+![](http://i.imgur.com/sGmfuad.jpg)
