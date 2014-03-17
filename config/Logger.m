@@ -12,7 +12,7 @@
 
 + (void)debug:(NSString*)message
 {
-  NSLog(@"[DEBUG]: %@", message);
+  //NSLog(@"[DEBUG]: %@", message);
 }
 
 + (void)info:(NSString *)message
