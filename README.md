@@ -142,6 +142,8 @@ Realistically, at this point, you'll need to do the following on your system to 
 Babou up and running from a fresh install:
 
 - install the OS X command line tools (mostly for git and gcc)
+- `ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)" # install homebrew`
+- `brew tap phinze/cask && brew install brew-cask && brew cask # install cask and run it to finish installation`
 - somehow get your config files to `~/.config` (I do it via git)
 - clone this repo install Xcode to build the binary or ask me for a copy
 - put the `config` binary somewhere in your path
