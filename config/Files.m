@@ -92,15 +92,31 @@
   NSString *fullPathHash = [Util hashForFileAtPath:fullPath];
   NSString *savedPathHash = [Util hashForFileAtPath:savedPath];
 
-  BOOL isDir;
-  BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:fullPath isDirectory:&isDir];
-  if (isDir || !exists) {
+  BOOL isSrcDir;
+  [[NSFileManager defaultManager] fileExistsAtPath:fullPath isDirectory:&isSrcDir];
+  BOOL isDstDir;
+  BOOL destExists = [[NSFileManager defaultManager] fileExistsAtPath:savedPath isDirectory:&isDstDir];
+
+  if (isSrcDir && !destExists) {
+    NSError *error = nil;
+    [[NSFileManager defaultManager] createDirectoryAtPath:savedPath withIntermediateDirectories:YES attributes:nil error:&error];
+    if (error) {
+      [Logger fatal:@"Couldn't create directory"];
+    }
+  }
+
+
+
+  if (isSrcDir || isDstDir) {
     return;
   }
 
   if (![fullPathHash isEqualToString:savedPathHash]) {
     NSError *error = nil;
     NSString *fileContents = [NSString stringWithContentsOfFile:savedPath encoding:NSUTF8StringEncoding error:&error];
+    if (!destExists) {
+      [[NSFileManager defaultManager] createFileAtPath:fullPath contents:nil attributes:nil];
+    }
     [fileContents writeToFile:fullPath atomically:YES encoding:NSUTF8StringEncoding error:&error];
     if (error) {
       NSLog(@"%@", error);
