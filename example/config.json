@@ -11,7 +11,7 @@
         "~/go",
         "~/go/bin",
         "~/go/pkg",
-        "~/go/src",
+        "~/go/src"
     ],
     "brew_packages": {
         "ack" : {},
@@ -31,7 +31,7 @@
         "dropbox": {}
     },
     "git": {
-        "https://github.com/facebook/folly.git": "~/git/folly",
+        "https://github.com/facebook/folly.git": "~/git/folly"
     },
     "defaults_write": {
         "com.apple.dock": {

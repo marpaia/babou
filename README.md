@@ -55,7 +55,7 @@ you describe your desired configurations. Consider you had the following
         "~/go",
         "~/go/bin",
         "~/go/pkg",
-        "~/go/src",
+        "~/go/src"
     ],
     "brew_packages": {
         "ack" : {},
@@ -75,7 +75,7 @@ you describe your desired configurations. Consider you had the following
 		"dropbox": {}
     },
     "git": {
-        "https://github.com/facebook/folly.git": "~/git/folly",
+        "https://github.com/facebook/folly.git": "~/git/folly"
     },
     "defaults_write": {
         "com.apple.dock": {
