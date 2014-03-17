@@ -1,8 +1,6 @@
 babou
 =====
 
-![](http://i.imgur.com/sGmfuad.jpg)
-
 babou is a Mac OS X configuration management utility. It allows you
 to express the configurations of your OS X machine via a simple JSON file
 and a directory of flat files.
@@ -189,3 +187,7 @@ Please contribute and help improve this project!
 ## Contact
 
 This was written, with love, by Mike Arpaia.
+
+## Who's Babou?
+
+-> ![](http://i.imgur.com/sGmfuad.jpg) <-
