@@ -134,9 +134,18 @@ filesystem.
 the `defaults_write` section, which is internally backed by the `Settings`
 class, allows you to specifcy NSUserDefaults domains and a mapping of Key-Value
 pairs that you'd like to be set in that domain. This is good for system
-preferences and everything that's managed by propertly lists on you system.
+preferences and everything that's managed by propertly lists on your system.
 
 ## Installation
+
+Realistically, at this point, you'll need to do the following on your system to get
+Babou up and running from a fresh install:
+
+- install the OS X command line tools (mostly for git and gcc)
+- somehow get your config files to `~/.config` (I do it via git)
+- clone this repo install Xcode to build the binary or ask me for a copy
+- put the `config` binary somewhere in your path
+- run `config` from a terminal
 
 To install this, clone the Xcode project, build the binary and put it somewhere
 in your path. Then, once you create your `~/.config` directory with the relevant
@@ -149,7 +158,7 @@ If you set a `CONFIGDIR` environment variable, `config` will look for your
 
 ## Dependencies
 
-`config` has no external dependencies.
+Babou has no external dependencies.
 
 ## Contributing
 
