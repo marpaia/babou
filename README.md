@@ -99,7 +99,7 @@ directories such as your `~/.vim` directory or your `~/.zsh` directory.
 
 ### create directories
 
-The `create__directories` list with just create directories on your
+The `create_directories` list with just create directories on your
 filesystem. This is really useful for your `$GOPATH` or just normal directories
 that you always create.
 
