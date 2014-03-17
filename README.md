@@ -106,16 +106,21 @@ that you always create.
 ### brew packages
 
 The `brew_packages` section maps brew packages to a dictionary of options.
-If you want your package installed with option, see the `percona-server` entry
+If you want your package installed with options, see the `percona-server` entry
 above.
 
 ### cask packages
 
-Cask is a CLI-workflow for managing applications on your host. There's a
-ton of applications that have cask formulas and I've found it's definitely
+Cask is a CLI-workflow for managing graphical applications on your host. There's 
+a ton of applications that have cask formulas and I've found it's definitely
 the most reliable way to install applications in an automated fashion. The
 `Cask` class and the `Brew` class both inherrit from the `Package` class
-internally so they behave very similary.
+internally so they behave very similary. 
+
+**It's worth noting that different cask packges behave in different ways. 
+I said that cask is the most reliable way to automate the installation of
+graphical applications via config management, but the bar was set pretty low
+there.**
 
 ### git
 
