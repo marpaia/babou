@@ -147,10 +147,6 @@ Babou up and running from a fresh install:
 - put the `config` binary somewhere in your path
 - run `config` from a terminal
 
-To install this, clone the Xcode project, build the binary and put it somewhere
-in your path. Then, once you create your `~/.config` directory with the relevant
-`config.json` file and flat files, just type `config` and you'll be good to go!
-
 ## Customization
 
 If you set a `CONFIGDIR` environment variable, `config` will look for your
