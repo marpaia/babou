@@ -22,10 +22,10 @@ doesn't need to do anything to satisfy state that already exists, it won't!
 ## Maintanance status
 
 Beware that this is pretty new technology. I wrote this as a weekend project
-because it was something that I really wanted. I think it works well, but there
-are many ways in which it can be improved. I keep track of features that I want
-too add via GitHub issues. Check them out if you're interested in what's coming
-next!
+because it was something that I really wanted. I think it works well and I'm
+actively using and developing it, but there are many ways in which it can be
+improved. I keep track of features that I want too add via GitHub issues. 
+Check them out if you're interested in what's coming next!
 
 ## Motivation
 
