@@ -82,7 +82,7 @@
       }
       
     } else {
-      [self copyFileIfDifferentFrom:fullPath to:savedPath];
+      [self copyFileIfDifferentFrom:savedPath to:fullPath];
     }
   }
 }
@@ -92,20 +92,14 @@
   NSString *fullPathHash = [Util hashForFileAtPath:fullPath];
   NSString *savedPathHash = [Util hashForFileAtPath:savedPath];
 
-  BOOL isSrcDir;
+  BOOL isSrcDir = NO;
   [[NSFileManager defaultManager] fileExistsAtPath:fullPath isDirectory:&isSrcDir];
-  BOOL isDstDir;
+  BOOL isDstDir = NO;
   BOOL destExists = [[NSFileManager defaultManager] fileExistsAtPath:savedPath isDirectory:&isDstDir];
 
   if (isSrcDir && !destExists) {
-    NSError *error = nil;
-    [[NSFileManager defaultManager] createDirectoryAtPath:savedPath withIntermediateDirectories:YES attributes:nil error:&error];
-    if (error) {
-      [Logger fatal:@"Couldn't create directory"];
-    }
+    [Files createDirectoryIfNotExists:savedPath];
   }
-
-
 
   if (isSrcDir || isDstDir) {
     return;
@@ -113,14 +107,15 @@
 
   if (![fullPathHash isEqualToString:savedPathHash]) {
     NSError *error = nil;
-    NSString *fileContents = [NSString stringWithContentsOfFile:savedPath encoding:NSUTF8StringEncoding error:&error];
+    NSString *fileContents = [NSString stringWithContentsOfFile:fullPath encoding:NSUTF8StringEncoding error:&error];
     if (!destExists) {
-      [[NSFileManager defaultManager] createFileAtPath:fullPath contents:nil attributes:nil];
-    }
-    [fileContents writeToFile:fullPath atomically:YES encoding:NSUTF8StringEncoding error:&error];
-    if (error) {
-      NSLog(@"%@", error);
-      [App printHelpAndExitWithExitCode:1 andMessage:[Errors errorMessageForError:FILE_COPY_FAILED]];
+      [[NSFileManager defaultManager] createFileAtPath:savedPath contents:[NSData dataWithContentsOfFile:fullPath] attributes:nil];
+    } else {
+      [fileContents writeToFile:fullPath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+      if (error) {
+        NSLog(@"%@", error);
+        [App printHelpAndExitWithExitCode:1 andMessage:[Errors errorMessageForError:FILE_COPY_FAILED]];
+      }
     }
     NSString *logString = [NSString stringWithFormat:@"File at path %@ was updated", fullPath];
     [Logger event:logString];
