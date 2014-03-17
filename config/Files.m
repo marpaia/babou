@@ -92,6 +92,12 @@
   NSString *fullPathHash = [Util hashForFileAtPath:fullPath];
   NSString *savedPathHash = [Util hashForFileAtPath:savedPath];
 
+  BOOL isDir;
+  BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:fullPath isDirectory:&isDir];
+  if (isDir || !exists) {
+    return;
+  }
+
   if (![fullPathHash isEqualToString:savedPathHash]) {
     NSError *error = nil;
     NSString *fileContents = [NSString stringWithContentsOfFile:savedPath encoding:NSUTF8StringEncoding error:&error];

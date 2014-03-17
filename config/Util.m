@@ -41,15 +41,14 @@
 
 + (NSArray*)generateArrayOfDirectoryChildrenAtPath:(NSString*)path
 {
-  NSMutableArray *mutableArray;
+  NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithArray:@[]];
   NSFileManager *fileManager = [NSFileManager defaultManager];
   NSDirectoryEnumerator *enumerator = [fileManager enumeratorAtPath:path];
   for (NSString *file in enumerator) {
-    NSLog(@"%@", file);
     BOOL isDir = NO;
     [fileManager fileExistsAtPath:file isDirectory:&isDir];
     if (!isDir) {
-      [mutableArray addObject:file];
+      [mutableArray addObject:[@[path, file] componentsJoinedByString:@"/"]];
     }
   }
   return mutableArray;
